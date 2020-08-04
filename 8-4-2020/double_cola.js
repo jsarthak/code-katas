@@ -15,19 +15,17 @@ whoIsNext(["Sheldon", "Leonard", "Penny", "Rajesh", "Howard"], 1) == "Sheldon"
 whoIsNext(["Sheldon", "Leonard", "Penny", "Rajesh", "Howard"], 52) == "Penny"
 whoIsNext(["Sheldon", "Leonard", "Penny", "Rajesh", "Howard"], 7230702951) == "Leonard"
  */
-function whoIsNext(names, r) {
-  let i = 1;
-  while (i <= r) {
-    name = names[0];
-    names.push(name);
-    names.push(name);
-    names.shift();
-    i++;
+const whoIsNext = (queue, index) => {
+  queue = queue.map((e) => [e, 1]);
+  let qi = 0,
+    j = 0;
+  while (j < index) {
+    j += queue[qi][1] *= 2;
+    qi = (qi + 1) % queue.length;
   }
-
-  return names[0];
-}
-whoIsNext(["Sheldon", "Leonard", "Penny", "Rajesh", "Howard"], 7230702951);
+  return queue[(queue.length + qi - 1) % queue.length][0];
+};
+console.log(whoIsNext(["Sheldon", "Leonard", "Penny", "Rajesh", "Howard"], 52));
 
 //  let names = ["Sheldon", "Leonard", "Penny", "Rajesh", "Howard"];
 //Test.assertEquals(whoIsNext(names, 1), "Sheldon");
